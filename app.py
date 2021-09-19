@@ -7,10 +7,16 @@ from dash.dependencies import Input, Output, State
 
 from src import assets
 from src import elements
+from src import data
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
+
+# ===== Data Object =====
+data = data.CovidData(update="light")
+
+# =====             =====
 
 # ===== Dashboard Layout =====
 banner = elements.Banner()
@@ -42,6 +48,8 @@ def render_tab_content(tab_switch):
         return tab_0.build_child()
     if tab_switch == "tab1":
         return tab_1.build_child()
+
+# =====                  =====
 
 if __name__ == '__main__':
     app.run_server(debug=True)
