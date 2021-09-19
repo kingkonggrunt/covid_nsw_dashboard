@@ -5,21 +5,8 @@ from src import assets
 
 class Banner:
     def __init__(self):
-        pass
 
-    def build(self):
-        return html.Div(
-            id="banner",
-            className="banner",
-            children=[
-                self._title,
-                self._button
-            ]
-        )
-
-    @property
-    def _title(self):
-        return html.Div(
+        self._title = html.Div(
             id="banner-title",
             children=[
                 html.H5("COVID NSW DASHBOARD"),
@@ -27,9 +14,7 @@ class Banner:
             ]
         )
 
-    @property
-    def _button(self):
-        return html.Div(
+        self._button = html.Div(
             id="banner-buttons",
             children=[
                 html.A(
@@ -44,3 +29,78 @@ class Banner:
                 )
             ]
         )
+
+    def build(self):
+        return html.Div(
+            id="banner",
+            className="banner",
+            children=[
+                self._title,
+                self._button
+            ]
+        )
+
+class Tabs:
+    def __init__(self):
+
+        self._tabs = [
+            dcc.Tab(
+                id="Homepage",
+                label="Homepage",
+                value="tab0",
+                className="dashboard-tabs",
+                selected_className="dashboard-tabs--selected"
+            ),
+            dcc.Tab(
+                id="Case Locations",
+                label="Covid Case Locations",
+                value="tab1",
+                className="dashboard-tabs",
+                selected_className="dashboard-tabs--selected",
+            )
+        ]
+
+
+    def build(self):
+        return html.Div(
+        id="tabs",
+        className="tabs",
+        children=[
+            dcc.Tabs(
+            id="dashboard-tabs",
+            value="tab0",
+            className="dashboard-tabs",
+            children=self._tabs
+            )
+        ]
+        )
+
+class Tab0Homepage:
+    def __init__(self):
+
+        self._title = html.Div(
+            id="tab0-title",
+            children=html.P(
+                "Heading for Tab0: Homepage"
+            )
+        )
+
+    def build_child(self):
+        return [
+            self._title
+        ]
+
+class Tab1:
+    def __init__(self):
+
+        self._title = html.Div(
+            id="tab1",
+            children=html.P(
+                "Heading for Tab1: Something"
+            )
+        )
+
+    def build_child(self):
+        return [
+            self._title
+        ]
