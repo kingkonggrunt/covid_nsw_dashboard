@@ -1,6 +1,7 @@
 import csv
 import requests
 import datetime
+import json
 from os import path, makedirs
 
 import pandas as pd
@@ -8,14 +9,28 @@ import pandas as pd
 makedirs("data", exist_ok=True)
 makedirs("data/metadata", exist_ok=True)
 
-def download_csv(url, filename):
+def text_manager(string):
+    return string.decode('utf-8-sig', 'ignore')\
+    .replace('\u200b', '')\
+    .split(",")
+
+def download_data(url, filename):
     with requests.Session() as s:
         response = s.get(url)
 
-        with open(f"{filename}.csv", 'w') as f:
-            writer = csv.writer(f)
-            for line in response.iter_lines():
-                writer.writerow(line.decode('utf-8').split(','))
+        if url.endswith(".csv"):
+            with open(f"{filename}.csv", 'w') as f:
+                writer = csv.writer(f)
+                for line in response.iter_lines():
+                    try:
+                        writer.writerow(text_manager(line))
+                    except ValueError as x:
+                        print("===Error:", x)
+                        print(line)
+
+        elif url.endswith(".json"):
+            with open(f"{filename}.json", 'w') as f:
+                json.dump(response.json(), f)
 
 def update_last_updated():
     # TODO:
