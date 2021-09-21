@@ -14,7 +14,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
 # ===== Data Object =====
-data = data.CovidData(update="light")
+data = data.CovidData(update=None)
 
 # =====             =====
 
@@ -52,4 +52,5 @@ def render_tab_content(tab_switch):
 # =====                  =====
 
 if __name__ == '__main__':
+    data.update(type="all")
     app.run_server(debug=True)
