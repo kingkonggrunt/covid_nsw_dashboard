@@ -22,11 +22,7 @@ def download_data(url, filename):
             with open(f"{filename}.csv", 'w') as f:
                 writer = csv.writer(f)
                 for line in response.iter_lines():
-                    try:
-                        writer.writerow(text_manager(line))
-                    except ValueError as x:
-                        print("===Error:", x)
-                        print(line)
+                    writer.writerow(text_manager(line))
 
         elif url.endswith(".json"):
             with open(f"{filename}.json", 'w') as f:
