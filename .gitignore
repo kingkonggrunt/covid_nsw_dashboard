@@ -5,3 +5,4 @@ venv
 *.ipynb
 data/*.csv
 data/*.json
+sample_app.py
