@@ -38,3 +38,9 @@ total_lga = df['lga_name19'].value_counts().rename_axis("local government area")
 postcode_overtime = sort_date_value_counts_by_group(df, 'notification_date', 'postcode')
 lga_overtime = sort_date_value_counts_by_group(df, 'notification_date', 'lga_name19')
 lhd_overtime = sort_date_value_counts_by_group(df, 'notifcation_date', 'lhd_2010_name')
+
+# ===== Cases (Source)
+df = pd.read_csv('data/c19/Cases (Source).csv')
+
+source_overtime = sort_date_value_counts_by_group(df, 'notification_date', 'likely_source_of_infection')
+total_source = value_counts_to_df(df, "likely_source_of_infection", "count")
