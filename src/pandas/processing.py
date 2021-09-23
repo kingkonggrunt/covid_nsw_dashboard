@@ -20,6 +20,9 @@ def sort_date_value_counts_by_group(df, date, group):
 
     return df_out
 
+def value_counts_to_df(df, col, count_name):
+    return df[col].value_counts().rename_axis(col).to_frame(count_name)
+
 # ===== Cases (Age Range)
 df = pd.read_csv("data/c19/Cases (Age Range).csv")
 df_age_overtime = sort_date_value_counts_by_group(df, date='notifcation_date', group='age_group')
