@@ -1,6 +1,9 @@
 import pandas as pd
 import datetime
 
+# ===== Lockdown Date 2021
+date_lockdown = datetime.datetime(2021,6,11,0,0)
+
 # ===== Cases (Age Range)
 df = pd.read_csv("data/c19/Cases (Age Range).csv")
 df['datetime'] = df['notification_date'].apply(datetime.datetime.fromisoformat)
