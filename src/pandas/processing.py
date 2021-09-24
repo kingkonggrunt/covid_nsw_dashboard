@@ -42,3 +42,10 @@ df = pd.read_csv('data/c19/Cases (Source).csv', parse_dates=['notification_date'
 
 source_overtime = sort_column_value_counts_by_group(df, 'notification_date', 'likely_source_of_infection')
 total_source = value_counts_to_df(df, "likely_source_of_infection", "count")
+
+# ===== Cases (Date,Location,Source)
+df = pd.read_csv('data/c19/Cases (Date,Location,Source).csv', parse_dates=['notification_date'])
+
+source_postcode = sort_column_value_counts_by_group(df, 'likely_source_of_infection', 'postcode')
+source_lhd = sort_column_value_counts_by_group(df, 'likely_source_of_infection', 'lhd_2010_name')
+source_lga = sort_column_value_counts_by_group(df, 'likely_source_of_infection', "lga_name19")
