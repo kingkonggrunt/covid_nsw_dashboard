@@ -8,6 +8,7 @@ from src.pandas import processing
 
 from src.graph.GraphBuilder import GraphBuilder as GB
 
+
 class Tab0Homepage:
     def __init__(self):
 
@@ -23,11 +24,13 @@ class Tab0Homepage:
             self._title
         ]
 
+
 class Tab1:
     def __init__(self):
 
         self._data = CovidData()
-        self._title = html.P("Age Groups Data")
+        self._title = html.H3("Age Groups Data")
+        self._paragraph = html.P("Age Group Data was tracked from the 29 June 2021 onwards")
 
     # ===== Graph Building
     def _bar_total(self):
@@ -97,6 +100,7 @@ class Tab1:
                 id="tab1",
                 children=[
                     self._title,
+                    self._paragraph,
                     self._bar_total(),
                     self._bar_total_normalize(),
                     self._line_group_overtime(),
@@ -104,6 +108,7 @@ class Tab1:
                 ]
             )
         ]
+
 
 class TabActiveRoutes:
     def __init__(self):
