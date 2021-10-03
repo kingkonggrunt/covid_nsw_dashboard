@@ -14,7 +14,7 @@ class Tabs:
             ),
             dcc.Tab(
                 id="Case Locations",
-                label="Covid Case Locations",
+                label="Cases (Age Group)",
                 value="tab1",
                 className="dashboard-tabs",
                 selected_className="dashboard-tabs--selected",
