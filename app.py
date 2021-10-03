@@ -7,6 +7,8 @@ from dash.dependencies import Input, Output, State
 
 from src import assets
 from src import elements
+from src.tabs import content as TabContent
+from src.tabs import tabs as Tabs
 from src import data
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -20,11 +22,11 @@ data = data.CovidData(update=None)
 
 # ===== Dashboard Layout =====
 banner = elements.Banner()
-tabs = elements.Tabs()
+tabs = Tabs.Tabs()
 
-tab_0 = elements.Tab0Homepage()
-tab_1 = elements.Tab1()
-tab_active_routes = elements.TabActiveRoutes()
+tab_0 = TabContent.Tab0Homepage()
+tab_1 = TabContent.Tab1()
+tab_active_routes = TabContent.TabActiveRoutes()
 
 app.layout = html.Div(
     id="covid_nsw_dashboard",
