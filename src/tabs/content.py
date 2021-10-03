@@ -150,5 +150,3 @@ class TabActiveRoutes:
             )
             #self._build_public_transport_data_table()
         ]
-
-# AHHAHAHAHAHHHH
