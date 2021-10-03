@@ -69,13 +69,12 @@ class Tab1:
         df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
 
-        df.reset_index(inplace=True)
-
         df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
+        df.rename_axis(index="Notification Date",columns="Age Groups", inplace=True)
 
         graph = GB("age_group_overtime")
         graph.figure("line", df,
-            x='index', y=df.columns, title="Cases Overtime (Age Group)"
+            x=df.index, y=df.columns, title="Cases Overtime (Age Group)"
         )
         return graph.build()
 
@@ -84,13 +83,12 @@ class Tab1:
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
         df = df.cumsum()
 
-        df.reset_index(inplace=True)
-
         df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
+        df.rename_axis(index="Notification Date",columns="Age Groups", inplace=True)
 
         graph = GB(id="age_group_overtime_cumsum")
         graph.figure("line", df,
-            x='index', y=df.columns, title="Cases Overtime (Age Group) Cumulative"
+            x=df.index, y=df.columns, title="Cases Overtime (Age Group) Cumulative"
         )
         return graph.build()
 
