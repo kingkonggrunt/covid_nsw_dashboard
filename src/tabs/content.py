@@ -39,14 +39,11 @@ class Tab1:
 
         df['age_group'] = df['age_group'].apply(lambda x: x.replace("AgeGroup_", ""))
 
-        fig = px.bar(df, x="age_group", y="cases",
-            title="Total Cases by Age Group"
+        graph = GB(id="age_group_total")
+        graph.figure("bar", df,
+            x="age_group", y="cases", title="Total Cases by Age Group"
         )
-        graph = dcc.Graph(
-            id="age_group_total",
-            figure=fig
-        )
-        return graph
+        return graph.build()
 
     def _bar_total_normalize(self):
         df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
@@ -58,15 +55,12 @@ class Tab1:
         df['percent'] = df['percent'].apply(lambda x: x*100)
         df['age_group'] = df['age_group'].apply(lambda x: x.replace("AgeGroup_", ""))
 
-        fig = px.pie(df, names="age_group", values="percent",
-            title="Total Cases by Age Group"
+        graph = GB("age_group_total_normalize")
+        graph.figure("pie", df,
+            names="age_group", values="percent", title="Total Cases by Age Group"
         )
-        fig.update_traces(textposition="inside", textinfo="percent+label")
-        graph = dcc.Graph(
-            id="age_group_total_normalize",
-            figure=fig
-        )
-        return graph
+        graph.update_traces(textposition="inside", textinfo="percent+label")
+        return graph.build()
 
     def _line_group_overtime(self):
         df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
@@ -76,14 +70,11 @@ class Tab1:
 
         df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
 
-        fig = px.line(df, x='index', y=df.columns,
-            title="Cases Overtime (Age Group)"
+        graph = GB("age_group_overtime")
+        graph.figure("line", df,
+            x='index', y=df.columns, title="Cases Overtime (Age Group)"
         )
-        graph = dcc.Graph(
-            id="age_group_overtime",
-            figure=fig
-        )
-        return graph
+        return graph.build()
 
     def _line_group_overtime_cumsum(self):
         df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
