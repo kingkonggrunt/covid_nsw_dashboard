@@ -1,5 +1,11 @@
 import plotly.express as px
 
+"""
+Wonder why we call this for the GraphBuilder instead of
+get(attr, figure)? It doesn't work
+"""
+
+
 figures = {
     "scatter":px.scatter,
     "scatter_3d":px.scatter_3d,
