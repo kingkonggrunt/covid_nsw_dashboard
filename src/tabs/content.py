@@ -42,7 +42,7 @@ class TabActiveRoutes:
         self._title = html.P("Active Flight and Public Transport Routes")
 
     # ===== This is the hard coded stuff for the generation of relavent data
-    def _build_flight_data_table(self):
+    def _data_table_flight(self):
         df = self._data.load_csv("Case Flights.csv")
         table = dash_table.DataTable(
             id='flights_table',
@@ -51,7 +51,7 @@ class TabActiveRoutes:
         )
         return table
 
-    def _build_public_transport_data_table(self):
+    def _data_table_public_transport(self):
         df = self._data.load_csv("Case Public Transport Routes.csv")
         table = dash_table.DataTable(
             id='public_transport_table',
@@ -68,9 +68,9 @@ class TabActiveRoutes:
             children=[
                 self._title,
                 html.P("Active Flight Routes"),
-                self._build_flight_data_table(),
+                self._data_table_flight(),
                 html.P("Active Public Transport Routes"),
-                self._build_public_transport_data_table()
+                self._data_table_public_transport()
             ]
             )
             #self._build_public_transport_data_table()
