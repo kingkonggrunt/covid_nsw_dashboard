@@ -57,6 +57,14 @@ class Tabs:
                 value="tab1",
                 className="dashboard-tabs",
                 selected_className="dashboard-tabs--selected",
+            ),
+            dcc.Tab(
+                id="Active Flight and Public Transport Routes",
+                label='Active Flight/Public Transport Routes',
+                value="tab_active_routes",
+                className="dashboard-tabs",
+                selected_className="dashboard-tabs--selected"
+
             )
         ]
 
@@ -97,6 +105,21 @@ class Tab1:
             id="tab1",
             children=html.P(
                 "Heading for Tab1: Something"
+            )
+        )
+
+    def build_child(self):
+        return [
+            self._title
+        ]
+
+class TabActiveRoutes:
+    def __init__(self):
+
+        self._title = html.Div(
+            id="tab1",
+            children=html.P(
+                "Active Flight and Public Transport Routes"
             )
         )
 

@@ -24,6 +24,7 @@ tabs = elements.Tabs()
 
 tab_0 = elements.Tab0Homepage()
 tab_1 = elements.Tab1()
+tab_active_routes = elements.TabActiveRoutes()
 
 app.layout = html.Div(
     id="covid_nsw_dashboard",
@@ -48,6 +49,8 @@ def render_tab_content(tab_switch):
         return tab_0.build_child()
     if tab_switch == "tab1":
         return tab_1.build_child()
+    if tab_switch == "tab_active_routes":
+        return tab_active_routes.build_child()
 
 # =====                  =====
 
