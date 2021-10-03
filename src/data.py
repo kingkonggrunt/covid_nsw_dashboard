@@ -6,7 +6,7 @@ from os import path, makedirs
 
 import pandas as pd
 
-makedirs("data", exist_ok=True)
+makedirs("data/data", exist_ok=True)
 makedirs("data/metadata", exist_ok=True)
 
 def text_manager(string):
@@ -37,7 +37,7 @@ class CovidData:
     Class to handle data from NSW Covid Data
     """
     def __init__ (self, update=None):
-        self._data = "data" # Data dir
+        self._data = "data/data" # Data dir
 
         self._urls = {
             "Cases (Date,Location,Source)":[
