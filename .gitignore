@@ -3,6 +3,7 @@ venv
 .DS_Store
 .env
 *.ipynb
+data/data
 data/*.csv
 data/*.json
 sample_app.py
