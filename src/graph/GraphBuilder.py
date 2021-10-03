@@ -5,6 +5,20 @@ import plotly.express as px
 from src.graph.figures import figures
 
 class GraphBuilder:
+    """
+    ## GraphBuilder
+
+    Wrapper for the construction of plotly express figures into dcc.Graph
+    dash_core_components
+
+    `id` : css id for the Graph dash_core_components
+
+    .figure(figure, df, **kwargs)
+        `figure` : plotly express figure
+        `df` : pandas DataFrame
+        `**kwargs` : key word arguments that are passed into the px.figure
+
+    """
     def __init__(self, id=""):
         self._id = id
         self._fig = None
