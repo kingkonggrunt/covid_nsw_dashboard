@@ -56,9 +56,9 @@ def render_tab_content(tab_switch):
     }
 
     return tab_to_content[tab_switch]()
-        
+
 # =====                  =====
 
 if __name__ == '__main__':
-    data.update(type=None)
+    data.update(type=all)
     app.run_server(debug=True)
