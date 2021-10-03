@@ -47,15 +47,18 @@ app.layout = html.Div(
     [Input("dashboard-tabs", "value")],
 )
 def render_tab_content(tab_switch):
-    if tab_switch == "tab0":
-        return tab_0.build_child()
-    if tab_switch == "tab1":
-        return tab_1.build_child()
-    if tab_switch == "tab_active_routes":
-        return tab_active_routes.build_child()
 
+    tab_to_content = {
+        "tab0":tab_0.build_child,
+        "tab1":tab_1.build_child,
+        "tab_cases_postcode":None,
+        "tab_active_routes":tab_active_routes.build_child,
+    }
+
+    return tab_to_content[tab_switch]()
+        
 # =====                  =====
 
 if __name__ == '__main__':
-    data.update(type="all")
+    data.update(type=None)
     app.run_server(debug=True)
