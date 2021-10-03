@@ -66,6 +66,40 @@ class Tab1:
         )
         return graph
 
+    def _line_group_overtime(self):
+        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
+
+        df.reset_index(inplace=True)
+
+        df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
+
+        fig = px.line(df, x='index', y=df.columns,
+            title="Cases Overtime (Age Group)"
+        )
+        graph = dcc.Graph(
+            id="age_group_overtime",
+            figure=fig
+        )
+        return graph
+
+    def _line_group_overtime_cumsum(self):
+        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
+        df = df.cumsum()
+
+        df.reset_index(inplace=True)
+
+        df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
+
+        fig = px.line(df, x='index', y=df.columns,
+            title="Cases Overtime (Age Group) Cumulative"
+        )
+        graph = dcc.Graph(
+            id="age_group_overtime_cumsum",
+            figure=fig
+        )
+        return graph
 
     def build_child(self):
         return [
@@ -74,7 +108,9 @@ class Tab1:
                 children=[
                     self._title,
                     self._bar_total(),
-                    self._bar_total_normalize()
+                    self._bar_total_normalize(),
+                    self._line_group_overtime(),
+                    self._line_group_overtime_cumsum()
                 ]
             )
         ]
