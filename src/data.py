@@ -96,8 +96,7 @@ class CovidData:
 
     def load_csv(self, filename):
         """
-        Requires the .csv file extensions at the end
+        Requires the .csv file extension at the end
         """
-        data="data"
-        df = pd.load_csv(path.join(data,filename))
+        df = pd.read_csv(path.join(self._data,filename))
         return df
