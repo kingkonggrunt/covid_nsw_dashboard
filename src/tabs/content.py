@@ -6,6 +6,8 @@ import plotly.express as px
 from src.data import CovidData
 from src.pandas import processing
 
+from src.graph.GraphBuilder import GraphBuilder as GB
+
 class Tab0Homepage:
     def __init__(self):
 
@@ -92,14 +94,11 @@ class Tab1:
 
         df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
 
-        fig = px.line(df, x='index', y=df.columns,
-            title="Cases Overtime (Age Group) Cumulative"
+        graph = GB(id="age_group_overtime_cumsum")
+        graph.figure("line", df,
+            x='index', y=df.columns, title="Cases Overtime (Age Group) Cumulative"
         )
-        graph = dcc.Graph(
-            id="age_group_overtime_cumsum",
-            figure=fig
-        )
-        return graph
+        return graph.build()
 
     def build_child(self):
         return [
