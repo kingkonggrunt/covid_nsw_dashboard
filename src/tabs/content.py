@@ -108,6 +108,23 @@ class Tab1:
         ]
 
 
+class TabCasesPostCode():
+    def __init__(self):
+
+        self._data = CovidData()
+        self._title = html.H3("Cases by Postcode")
+
+    def build_child(self):
+        return [
+            html.Div(
+                id="tab_cases_postcode",
+                children=[
+                    self._title
+                ]
+            )
+        ]
+
+
 class TabActiveRoutes:
     def __init__(self):
 

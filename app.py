@@ -26,6 +26,7 @@ tabs = Tabs.Tabs()
 
 tab_0 = TabContent.Tab0Homepage()
 tab_1 = TabContent.Tab1()
+tab_cases_postcode = TabContent.TabCasesPostCode()
 tab_active_routes = TabContent.TabActiveRoutes()
 
 app.layout = html.Div(
@@ -51,7 +52,7 @@ def render_tab_content(tab_switch):
     tab_to_content = {
         "tab0":tab_0.build_child,
         "tab1":tab_1.build_child,
-        "tab_cases_postcode":None,
+        "tab_cases_postcode":tab_cases_postcode.build_child,
         "tab_active_routes":tab_active_routes.build_child,
     }
 
