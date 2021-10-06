@@ -1,6 +1,6 @@
 import csv
 import requests
-import datetime
+from src.helpers.TimeHelper import TimeHelper
 import json
 from os import path, makedirs
 
@@ -93,6 +93,25 @@ class CovidData:
                     download_data(u[1], path.join(self._data,f))
         else:
             pass
+
+        self._update_log(type=type)
+
+    def _update_log(self, type=None):
+
+        TH = TimeHelper()
+        TH.set_timezone(tz="Australia/Sydney")
+        TH._fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+
+
+        if type == "all":
+            with open("data/metadata/update_all.log", "w") as f:
+                f.write(TH.time_now_str)
+        if type == "light":
+            with open("data/metadata/update_light.log", "w") as f:
+                f.write(TH.time_now_str)
+        if type == "heavy":
+            with open("data/metadata/update_heavy.log", "w") as f:
+                f.write(TH.time_now_str)
 
     def load_csv(self, filename, **kwargs):
         """
