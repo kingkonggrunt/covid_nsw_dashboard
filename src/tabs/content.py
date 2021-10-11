@@ -126,13 +126,33 @@ class TabCasesPostCode():
 
         return _dcc
 
+    def _number_postcode_total(self):
+        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        _postcode_totals = df['postcode'].value_counts().rename_axis("postcode").to_frame("count")
+
+        out = html.Div(
+            id='postcode-total-string',
+            children='Test string that should dissapear with callbacks working'
+        )
+
+        # @app.callback(
+        #     Output("postcode-total-string", "children"),
+        #     Input("postcode_selector", "value")
+        # )
+        # def _return_postcode_total(postcode):
+        #     total = _postcode_totals.loc[postcode]['count']
+        #     return f"Total for {postcode}: {total}"
+
+        return out
+
     def build_child(self):
         return [
             html.Div(
                 id="tab_cases_postcode",
                 children=[
                     self._title,
-                    self._postcode_dropdown()
+                    self._dropdown_postcode(),
+                    self._number_postcode_total(),
                 ]
             )
         ]
