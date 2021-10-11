@@ -119,7 +119,7 @@ class TabCasesPostCode():
         _dcc = dcc.Dropdown(
             id="postcode_selector",
             options=[
-                {"label": postcode, "value": postcode} for postcode in df['postcode'].unique()
+                {"label": postcode, "value": postcode} for postcode in sorted(df['postcode'].unique())
             ],
             value="2000"
         )
