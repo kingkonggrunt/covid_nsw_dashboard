@@ -114,12 +114,25 @@ class TabCasesPostCode():
         self._data = CovidData()
         self._title = html.H3("Cases by Postcode")
 
+    def _dropdown_postcode(self):
+        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        _dcc = dcc.Dropdown(
+            id="postcode_selector",
+            options=[
+                {"label": postcode, "value": postcode} for postcode in df['postcode'].unique()
+            ],
+            value="2000"
+        )
+
+        return _dcc
+
     def build_child(self):
         return [
             html.Div(
                 id="tab_cases_postcode",
                 children=[
-                    self._title
+                    self._title,
+                    self._postcode_dropdown()
                 ]
             )
         ]
