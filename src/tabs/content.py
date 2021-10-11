@@ -127,9 +127,6 @@ class TabCasesPostCode():
         return _dcc
 
     def _number_postcode_total(self):
-        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
-        _postcode_totals = df['postcode'].value_counts().rename_axis("postcode").to_frame("count")
-
         out = html.Div(
             id='postcode-total-string',
             children='Test string that should dissapear with callbacks working'
