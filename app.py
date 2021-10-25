@@ -70,11 +70,7 @@ def render_tab_content(tab_switch):
     Input("postcode_selector", "value")
 )
 def _return_postcode_total(postcode):
-    df = data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
-    _postcode_totals = df['postcode'].value_counts().rename_axis("postcode").to_frame("count")
-
-    total = _postcode_totals.loc[postcode]['count']
-    return f"Total for {postcode}: {total}"
+    return tab_cases_postcode._number_postcode_total(postcode=postcode, callback_mode=True)
 
 # =====                  =====
 
