@@ -77,40 +77,29 @@ class CovidData:
         self.update(type=update)
 
     def update(self, type=None):
-        if type == "light":
-            for f,u in self._urls.items():
-                if u[0] == "light":
-                    print(f"Updating: {f}")
-                    download_data(u[1], path.join(self._data,f))
+        if type in ['light', 'heavy']:
+            for filename, metadata in self._urls.items():
+                if metadata[0] == type:
+                    print(f"{type.capitalize()} Updating: {filename}")
+                    download_data(metadata[1], path.join(self._data,filename))
         elif type == "all":
-            for f,u in self._urls.items():
-                print(f"Updating: {f}")
-                download_data(u[1], path.join(self._data,f))
-        elif type == "heavy":
-            for f,u in self._urls.items():
-                if u[0] == "heavy":
-                    print(f"Updating: {f}")
-                    download_data(u[1], path.join(self._data,f))
-        else:
-            pass
+            for filename, metadata in self._urls.items():
+                download_data(metadata[1], path.join(self._data, filename))
 
         self._update_log(type=type)
 
     def _update_log(self, type=None):
-
         TH = TimeHelper()
         TH.set_timezone(tz="Australia/Sydney")
         TH._fmt = "%Y-%m-%d %H:%M:%S %Z%z"
+        update_logs = {
+            "all": "data/metadata/update_all.log",
+            "light": "data/metadata/update_light.log",
+            "heavy": "data/metadata/update_heavy.log",
+        }
 
-
-        if type == "all":
-            with open("data/metadata/update_all.log", "w") as f:
-                f.write(TH.time_now_str)
-        if type == "light":
-            with open("data/metadata/update_light.log", "w") as f:
-                f.write(TH.time_now_str)
-        if type == "heavy":
-            with open("data/metadata/update_heavy.log", "w") as f:
+        if type in update_logs:
+            with open(update_logs[type], "w") as f:
                 f.write(TH.time_now_str)
 
     def load_csv(self, filename, **kwargs):
