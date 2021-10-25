@@ -179,6 +179,45 @@ class TabCasesPostCode():
             )
         ]
 
+class TabCasesLGA:
+    def __init__(self):
+        self._title = html.P("Cases by LGA")
+
+    def _dropdown_lga(self):
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        _dcc = dcc.Dropdown(
+            id="lga_selector",
+            options=[
+                {"label": lga, "value": lga} for lga in sorted(df['lga_name19'].unique().astype(str))
+            ], # nan values are typed as integers couldn't be sorted with strings
+            value="Sydney (C)"
+        )
+
+        return _dcc
+
+    def _number_lga_total(self, lga='Sydney', callback_mode=False):
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        lga_totals = processing.value_counts_to_df(df, "lga_name19", "count")
+        total = lga_totals.loc[lga]['count']
+
+        if callback_mode:
+            return f'Total for {lga}: {total}'
+
+        return html.Div(
+            id='postcode-total-string',
+            children=f'Total for {lga}: {total}'
+        )
+
+    def build_child(self):
+        return [
+            html.Div(
+                id="tabs_cases_lga",
+                children=[
+                    self._title,
+                    self._dropdown_lga(),
+                ]
+            )
+        ]
 
 class TabActiveRoutes:
     def __init__(self):
