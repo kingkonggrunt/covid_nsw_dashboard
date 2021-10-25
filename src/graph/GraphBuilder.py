@@ -26,8 +26,12 @@ class GraphBuilder:
     def figure(self, figure, df, **kwargs):
         self._fig = figures[figure](df, **kwargs)
 
+
     def update_traces(self, **kwargs):
         self._fig.update_traces(**kwargs)
+
+    def return_figure(self):
+        return self._fig
 
     def build(self):
         return dcc.Graph(
