@@ -147,7 +147,20 @@ class TabCasesPostCode():
         graph.figure("line", df[postcode])
 
         if callback_mode:
-            return graph.return_figure() 
+            return graph.return_figure()
+
+        return graph.build()
+
+    def _line_postcode_overtime_cumsum(self, postcode='2000', callback_mode=False):
+        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'postcode')
+        df = df.cumsum()
+
+        graph = GB(id="postcode_overtime_cumsum")
+        graph.figure("line", df[postcode])
+
+        if callback_mode:
+            return graph.return_figure()
 
         return graph.build()
 
@@ -159,7 +172,8 @@ class TabCasesPostCode():
                     self._title,
                     self._dropdown_postcode(),
                     self._number_postcode_total(),
-                    self._line_postcode_overtime()
+                    self._line_postcode_overtime(),
+                    self._line_postcode_overtime_cumsum(),
                 ]
             )
         ]
