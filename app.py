@@ -10,6 +10,11 @@ from src import elements
 from src.tabs import content as TabContent
 from src.tabs import tabs as Tabs
 from src import data
+from src.graph.GraphBuilder import GraphBuilder
+
+
+import pandas as pd
+from src.processing import processing
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
