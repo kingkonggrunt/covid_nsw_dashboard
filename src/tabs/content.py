@@ -140,11 +140,15 @@ class TabCasesPostCode():
             children=f'Total for {postcode}: {total}'
         )
 
-    def _line_postcode_overtime(self, postcode='2000'):
+    def _line_postcode_overtime(self, postcode='2000', callback_mode=False):
         df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'postcode')
         graph = GB("postcode_overtime")
         graph.figure("line", df[postcode])
+
+        if callback_mode:
+            return graph.return_figure() 
+
         return graph.build()
 
     def build_child(self):

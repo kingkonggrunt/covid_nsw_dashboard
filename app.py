@@ -72,6 +72,13 @@ def render_tab_content(tab):
 def _return_postcode_total(postcode):
     return tab_cases_postcode._number_postcode_total(postcode=postcode, callback_mode=True)
 
+@app.callback(
+    Output("postcode_overtime", "figure"),
+    Input("postcode_selector", "value")
+)
+def _return_line_postcode_overtime(postcode):
+    return tab_cases_postcode._line_postcode_overtime(postcode=postcode, callback_mode=True)
+
 # =====                  =====
 
 if __name__ == '__main__':
