@@ -27,12 +27,18 @@ class Tabs:
                 selected_className="dashboard-tabs--selected"
             ),
             dcc.Tab(
+                id="LGA",
+                label="Cases (LGA)",
+                value='tab_cases_lga',
+                className="dashboard-tabs",
+                selected_className="dashboard-tabs--selected"
+            ),
+            dcc.Tab(
                 id="Active Flight and Public Transport Routes",
                 label='Active Flight/Public Transport Routes',
                 value="tab_active_routes",
                 className="dashboard-tabs",
                 selected_className="dashboard-tabs--selected"
-
             )
         ]
 
