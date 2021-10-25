@@ -8,6 +8,7 @@ from src.processing import processing
 
 from src.graph.GraphBuilder import GraphBuilder as GB
 
+CovidData = CovidData()
 
 class Tab0Homepage:
     def __init__(self):
@@ -28,13 +29,13 @@ class Tab0Homepage:
 class Tab1:
     def __init__(self):
 
-        self._data = CovidData()
+        # CovidData = CovidData()
         self._title = html.H3("Age Groups Data")
         self._paragraph = html.P("Age Group Data was tracked from the 29 June 2021 onwards")
 
     # ===== Graph Building
     def _bar_total(self):
-        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
         df = processing.value_counts_to_df(df, "age_group", "cases")
 
         df.sort_index(ascending=True, inplace=True)
@@ -49,7 +50,7 @@ class Tab1:
         return graph.build()
 
     def _bar_total_normalize(self):
-        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
         df = processing.value_counts_to_df(df, "age_group", "percent", normalize=True)
 
         df.sort_index(ascending=True, inplace=True)
@@ -66,7 +67,7 @@ class Tab1:
         return graph.build()
 
     def _line_group_overtime(self):
-        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
 
         df.rename(columns={x: x.replace("AgeGroup_", "") for x in df.columns}, inplace=True)
@@ -79,7 +80,7 @@ class Tab1:
         return graph.build()
 
     def _line_group_overtime_cumsum(self):
-        df = self._data.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Age Range).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'age_group')
         df = df.cumsum()
 
@@ -111,11 +112,11 @@ class Tab1:
 class TabCasesPostCode():
     def __init__(self):
 
-        self._data = CovidData()
+        # CovidData = CovidData()
         self._title = html.H3("Cases by Postcode")
 
     def _dropdown_postcode(self):
-        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
         _dcc = dcc.Dropdown(
             id="postcode_selector",
             options=[
@@ -127,7 +128,7 @@ class TabCasesPostCode():
         return _dcc
 
     def _number_postcode_total(self, postcode='2000', callback_mode=False):
-        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
         _postcode_totals = processing.value_counts_to_df(df, "postcode", "count")
         total = _postcode_totals.loc[postcode]['count']
 
@@ -141,7 +142,7 @@ class TabCasesPostCode():
         )
 
     def _line_postcode_overtime(self, postcode='2000', callback_mode=False):
-        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'postcode')
         graph = GB("postcode_overtime")
         graph.figure("line", df[postcode])
@@ -152,7 +153,7 @@ class TabCasesPostCode():
         return graph.build()
 
     def _line_postcode_overtime_cumsum(self, postcode='2000', callback_mode=False):
-        df = self._data.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
+        df = CovidData.load_csv("Cases (Location).csv", parse_dates=['notification_date'])
         df = processing.sort_column_value_counts_by_group(df, 'notification_date', 'postcode')
         df = df.cumsum()
 
@@ -182,12 +183,12 @@ class TabCasesPostCode():
 class TabActiveRoutes:
     def __init__(self):
 
-        self._data = CovidData()
+        # CovidData = CovidData()
         self._title = html.P("Active Flight and Public Transport Routes")
 
     # ===== This is the hard coded stuff for the generation of relavent data
     def _data_table_flight(self):
-        df = self._data.load_csv("Case Flights.csv")
+        df = CovidData.load_csv("Case Flights.csv")
         table = dash_table.DataTable(
             id='flights_table',
             columns=[{"name": i, "id": i} for i in df.columns],
@@ -196,7 +197,7 @@ class TabActiveRoutes:
         return table
 
     def _data_table_public_transport(self):
-        df = self._data.load_csv("Case Public Transport Routes.csv")
+        df = CovidData.load_csv("Case Public Transport Routes.csv")
         table = dash_table.DataTable(
             id='public_transport_table',
             columns=[{"name": i, "id": i} for i in df.columns],
