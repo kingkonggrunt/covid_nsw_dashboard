@@ -4,7 +4,7 @@ from dash import dash_table
 import plotly.express as px
 
 from src.data import CovidData
-from src.pandas import processing
+from src.processing import processing
 
 from src.graph.GraphBuilder import GraphBuilder as GB
 
