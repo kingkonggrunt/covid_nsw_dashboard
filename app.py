@@ -53,7 +53,7 @@ app.layout = html.Div(
     [Output("tab-content", "children")],
     [Input("dashboard-tabs", "value")],
 )
-def render_tab_content(tab_switch):
+def render_tab_content(tab):
 
     tab_to_content = {
         "tab0":tab_0.build_child,
@@ -62,7 +62,7 @@ def render_tab_content(tab_switch):
         "tab_active_routes":tab_active_routes.build_child,
     }
 
-    return tab_to_content[tab_switch]()
+    return tab_to_content[tab]()
 
 
 @app.callback(
