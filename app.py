@@ -95,5 +95,5 @@ def _return_line_postcode_overtime_cumsum(postcode):
 # ===== Callbacks =====
 
 if __name__ == '__main__':
-    data.update(type=None)
+    data.update(type='all')
     app.run_server(debug=True)
