@@ -37,6 +37,19 @@ class CovidData:
     Class to handle data from NSW Covid Data
     """
     def __init__ (self, update=None):
+        """Short summary.
+
+        Parameters
+        ----------
+        update : type
+            Description of parameter `update`.
+
+        Returns
+        -------
+        __init__
+            Description of returned object.
+
+        """
         self._data = "data/data" # Data dir
 
         self._urls = {
@@ -68,7 +81,7 @@ class CovidData:
                 "light","https://data.nsw.gov.au/data/dataset/033c84bd-e702-46aa-be17-60e46754c0de/resource/954de47e-959d-495f-a85e-23fe66aea395/download/nsw-covid-19-public-transport-route-20210915.csv"
             ],
             "Case Flights":[
-                "light","https://data.nsw.gov.au/data/dataset/cae32b18-0156-401c-b4f4-15bcb29ef7bc/resource/3289ecee-7ca3-4638-8b9a-05c6009ee76a/download/nsw-covid-19-flights-20210725.csv.csv"
+                "light","https://data.nsw.gov.au/data/dataset/cae32b18-0156-401c-b4f4-15bcb29ef7bc/resource/3289ecee-7ca3-4638-8b9a-05c6009ee76a/download/nsw-covid-19-flights-20210725.csv"
             ],
             # "COVID Safe Venues":[
                 # "heavy","https://data.nsw.gov.au/data/dataset/80b88e79-79b1-4f2f-b961-a90591fc377d/resource/4a26e0f0-71e1-43bb-96a8-e1434bbce9d8/download/covidsafe-v3.csv"
@@ -84,6 +97,7 @@ class CovidData:
                     download_data(metadata[1], path.join(self._data,filename))
         elif type == "all":
             for filename, metadata in self._urls.items():
+                print(f"{type.capitalize()} Updating: {filename}")
                 download_data(metadata[1], path.join(self._data, filename))
 
         self._update_log(type=type)
